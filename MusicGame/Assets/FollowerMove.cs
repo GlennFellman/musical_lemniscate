@@ -35,7 +35,7 @@ public class FollowerMove : MonoBehaviour
 		Vector3 distance = playerPosition - this.transform.position;
 		
 		// Warp stuff
-		if (distance.z > -2.0f && distance.z < 2.0f && distance.y > -0.5f && distance.y < 0.5f) {
+		if (distance.z > -1.4f && distance.z < 1.4f && distance.y > -0.5f && distance.y < 0.5f) {
 			closeToPlayer = true;
     		renderer.material.color = Color.yellow;
 			//renderer.material = matClose;
@@ -53,7 +53,7 @@ public class FollowerMove : MonoBehaviour
 		if(isFollowing && player.isOnTop == isOnTop)
 		{
 			Vector3 translation = Vector3.Normalize(distance)*Time.deltaTime*followerSpeed;
-			if(distance.z > 1.5f || distance.z < -1.5f)
+			//if(distance.z > 1.4f || distance.z < -1.4f)
 				this.transform.Translate(0, 0, translation.z);
 //			if (distance.z > 1.5f)
 //				rigidbody.AddForce(0f, 0f, -100f, ForceMode.VelocityChange);
@@ -82,7 +82,7 @@ public class FollowerMove : MonoBehaviour
 		GoalZone goalZone = GameObject.FindObjectOfType(typeof(GoalZone)) as GoalZone;
 		Vector3 goalZonePos = goalZone.transform.position;
 		Vector3 distance = goalZonePos - transform.position;
-		if (distance.z > -0.01f && distance.z < 0.01f) {
+		if (distance.z > -0.1f && distance.z < 0.1f) {
 			isFollowing = false;
 			goalZone.goalReached();
 		}
