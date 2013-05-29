@@ -5,16 +5,24 @@
 # for some reason, specified files are STILL trying to sync, despite above rules
 
 .DS_Store
-MusicGame/Library
-MusicGame/Temp
 *.csproj
 *.pidb
 *.unityproj
 *.sln
 *.userprefs
+Library/FailedAssetImports.txt
+Library/cache/
+Library/previews/
+Library/ScriptAssemblies
+MusicGame/Library/FailedAssetImports.txt
+MusicGame/Library/cache/
+MusicGame/Library/previews/
+MusicGame/Library/ScriptAssemblies
+obj
+MusicGame/obj
+Temp
+MusicGame/Temp
 MusicGame/Musicgame-csharp.sln
 MusicGame/Musicgame.sln
-Library
-Temp
 Musicgame-csharp.sln
 Musicgame.sln
