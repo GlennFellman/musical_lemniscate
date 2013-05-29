@@ -14,7 +14,6 @@ public class FollowerMove : MonoBehaviour
 	private Color myColor;
 	public Material matNotClose;
 	public Material matClose;
-	
 
 	// Use this for initialization
 	void Start ()
@@ -38,8 +37,8 @@ public class FollowerMove : MonoBehaviour
 		// Warp stuff
 		if (distance.z > -2.0f && distance.z < 2.0f && distance.y > -0.5f && distance.y < 0.5f) {
 			closeToPlayer = true;
-    		//renderer.material.color = Color.yellow;
-			renderer.material = matClose;
+    		renderer.material.color = Color.yellow;
+			//renderer.material = matClose;
 		}
 		else {
 			closeToPlayer = false;
