@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 	void Start ()
 	{
 		Vector3 playerPosition = transform.position;
-		playerPosition.x = 10.0f;
+		playerPosition.x = 9.0f;
 		playerPosition.y = PLATFORMHEIGHT;
 		playerPosition.y += isOnTop? TOPLAYER : BOTTOMLAYER;
 		playerPosition.y += DELTALAYER*(level-1);
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 				f.warp();
 		}
 		
-		playerPosition.x = 10.0f;
+		playerPosition.x = 9.0f;
 		transform.position = playerPosition;
 	}
 }
