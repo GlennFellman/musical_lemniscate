@@ -59,6 +59,9 @@ public class Player : MonoBehaviour
 				playerPosition.y += TOPLAYER;
 			}
 			isOnTop = !isOnTop;
+			FollowerMove[] followers = GameObject.FindObjectsOfType(typeof(FollowerMove)) as FollowerMove[];
+			foreach (FollowerMove f in followers)
+				f.warp();
 		}
 		
 		playerPosition.x = 10.0f;
