@@ -29,5 +29,4 @@ public class Modifier : MonoBehaviour
 			isMovingRight = !isMovingRight;
 	}
 	
-	void 
 }
