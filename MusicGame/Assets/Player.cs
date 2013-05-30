@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 	void Start ()
 	{
 		Vector3 playerPosition = transform.position;
-		playerPosition.x = 9.0f;
+		playerPosition.x = 10.0f;
 		playerPosition.y = PLATFORMHEIGHT;
 		playerPosition.y += isOnTop? TOPLAYER : BOTTOMLAYER;
 		playerPosition.y += DELTALAYER*(level-1);
@@ -62,9 +62,12 @@ public class Player : MonoBehaviour
 			FollowerMove[] followers = GameObject.FindObjectsOfType(typeof(FollowerMove)) as FollowerMove[];
 			foreach (FollowerMove f in followers)
 				f.warp();
+			Enemy[] enemies = GameObject.FindObjectsOfType(typeof(Enemy)) as Enemy[];
+			foreach(Enemy e in enemies)
+				e.warp();
 		}
 		
-		playerPosition.x = 9.0f;
+		playerPosition.x = 10.0f;
 		transform.position = playerPosition;
 	}
 }
