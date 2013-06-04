@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
+public class QuarterRest : MonoBehaviour
 {
 	private const float TOPLAYER = 9.6f;
 	private const float BOTTOMLAYER = 0.0f;
