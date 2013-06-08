@@ -9,7 +9,9 @@ public class QuarterRest : MonoBehaviour
 	public float enemySpeed;
 	public bool isMovingRight;
 	
+	public bool justWarped;
 	public bool isOnTop;
+	public bool wasCloseToPlayer;
 	private bool closeToPlayer;
 	private Color myColor;
 	public Material matNotClose;
@@ -18,6 +20,8 @@ public class QuarterRest : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		justWarped = false;
+		wasCloseToPlayer = false;
 		closeToPlayer = false;
 		renderer.material = matNotClose;
 	}
@@ -56,21 +60,29 @@ public class QuarterRest : MonoBehaviour
 			//renderer.material.color = myColor;
 			renderer.material = matNotClose;
 		}
+		if(wasCloseToPlayer==true && closeToPlayer==false){
+			justWarped=false;
+		}
+		wasCloseToPlayer = closeToPlayer;
 	}
 	
 	public void warp() {
 		if (closeToPlayer) {
 			Vector3 followerPosition = transform.position;
-			if(isOnTop)
+			if(isOnTop && justWarped == false)
 			{
 				followerPosition.y -= TOPLAYER;
+				isOnTop = false;
+				justWarped = true;
 			}
-			else
+			else if(!isOnTop && justWarped == false)
 			{
 				followerPosition.y += TOPLAYER;
+				isOnTop = true;
+				justWarped = true;
 			}
 			transform.position = followerPosition;
-			isOnTop = !isOnTop;
+
 		}
 	}
 	

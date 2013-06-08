@@ -3,30 +3,36 @@ using System.Collections;
 
 public class Modifier : MonoBehaviour
 {
+	public GameObject modifier_sig;
 	public float enemySpeed;
 	public bool isMovingRight;
+	public Material mat;
 	
 	// Use this for initialization
-	public virtual void Start ()
+	void Start ()
 	{
-		isMovingRight = true;
+		renderer.material = mat;
 	}
 	
 	// Update is called once per frame
-	public virtual void Update ()
+	void Update ()
 	{
+		// Calculate horizontal movement
 		float s = isMovingRight? enemySpeed : -enemySpeed;
 		s *= Time.deltaTime;
-		this.transform.Translate(s, 0f, 0f);
+		this.transform.Translate(0f, 0f, -s);	
 	}
 	
-	public virtual void OnTriggerEnter(Collider collider)
+	void OnTriggerEnter(Collider collider)
 	{
-		Player p = GameObject.FindObjectOfType(typeof(Player)) as Player;
-		if (collider.attachedRigidbody == p.rigidbody)
-			this.active = false;
-		else
+		if(collider.gameObject.tag == "wall")
 			isMovingRight = !isMovingRight;
+		
+		//GameObject follower = GameObject.Find("Follower");
+		if (collider.gameObject.tag == "follower"){
+			modifier_sig.SetActive(true);
+			modifier_sig.renderer.material=this.renderer.material;
+			//Destroy(this.gameObject);
+		}		
 	}
-	
 }

@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		GameObject modifier_sig = GameObject.Find("Modifier_Sig");
+		modifier_sig.SetActive(false);
 		Vector3 playerPosition = transform.position;
 		playerPosition.x = 10.0f;
 		playerPosition.y = PLATFORMHEIGHT;

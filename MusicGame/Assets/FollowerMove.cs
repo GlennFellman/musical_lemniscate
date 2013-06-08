@@ -27,7 +27,6 @@ public class FollowerMove : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		goalCheck();
 		
 		// Find distance from follower to player
 		Player player = GameObject.FindObjectOfType(typeof(Player)) as Player;
@@ -53,8 +52,9 @@ public class FollowerMove : MonoBehaviour
 		if(isFollowing && player.isOnTop == isOnTop)
 		{
 			Vector3 translation = Vector3.Normalize(distance)*Time.deltaTime*followerSpeed;
-			//if(distance.z > 1.4f || distance.z < -1.4f)
+			if(distance.z > 1.4f || distance.z < -1.4f){
 				this.transform.Translate(0, 0, translation.z);
+			}
 //			if (distance.z > 1.5f)
 //				rigidbody.AddForce(0f, 0f, -100f, ForceMode.VelocityChange);
 //			else if (distance.z < 1.5f)
@@ -78,13 +78,5 @@ public class FollowerMove : MonoBehaviour
 		}
 	}
 	
-	public void goalCheck() {
-		GoalZone goalZone = GameObject.FindObjectOfType(typeof(GoalZone)) as GoalZone;
-		Vector3 goalZonePos = goalZone.transform.position;
-		Vector3 distance = goalZonePos - transform.position;
-		if (distance.z > -0.1f && distance.z < 0.1f) {
-			isFollowing = false;
-			goalZone.goalReached();
-		}
-	}
+
 }
