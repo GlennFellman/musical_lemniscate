@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
 		playerPosition.y += DELTALAYER*(level-1);
 		playerPosition.z = 13.0f;
 		transform.position = playerPosition;
+		
+		audio.playOnAwake = false;
+		audio.volume = 0.25f;
 	}
 	
 	// Update is called once per frame
@@ -66,8 +69,12 @@ public class Player : MonoBehaviour
 			foreach(QuarterRest qr in enemies)
 				qr.warp();
 			
+			// Change background music
 			BackgroundMusic bgm = GameObject.FindObjectOfType(typeof(BackgroundMusic)) as BackgroundMusic;
 			bgm.setMusic();
+			
+			// Play warp sound
+			audio.Play();
 		}
 		
 		playerPosition.x = 10.0f;
