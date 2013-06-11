@@ -14,8 +14,6 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		GameObject modifier_sig = GameObject.Find("Modifier_Sig");
-		modifier_sig.SetActive(false);
 		Vector3 playerPosition = transform.position;
 		playerPosition.x = 10.0f;
 		playerPosition.y = PLATFORMHEIGHT;
@@ -67,6 +65,9 @@ public class Player : MonoBehaviour
 			QuarterRest[] enemies = GameObject.FindObjectsOfType(typeof(QuarterRest)) as QuarterRest[];
 			foreach(QuarterRest qr in enemies)
 				qr.warp();
+			
+			BackgroundMusic bgm = GameObject.FindObjectOfType(typeof(BackgroundMusic)) as BackgroundMusic;
+			bgm.setMusic();
 		}
 		
 		playerPosition.x = 10.0f;

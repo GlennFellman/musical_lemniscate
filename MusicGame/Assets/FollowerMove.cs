@@ -8,7 +8,7 @@ public class FollowerMove : MonoBehaviour
 	
 	public bool isOnTop;
 	
-	private bool isFollowing;
+	public bool isFollowing;
 	public int followerSpeed;
 	private bool closeToPlayer;
 	private Color myColor;
@@ -47,8 +47,12 @@ public class FollowerMove : MonoBehaviour
 		}
 		
 		// Follow stuff
-		if(Input.GetKeyDown(KeyCode.F))
+		if(Input.GetKeyDown(KeyCode.F)) {
 			isFollowing = !isFollowing;
+			
+			BackgroundMusic bgm = GameObject.FindObjectOfType(typeof(BackgroundMusic)) as BackgroundMusic;
+			bgm.setMusic();
+		}
 		if(isFollowing && player.isOnTop == isOnTop)
 		{
 			Vector3 translation = Vector3.Normalize(distance)*Time.deltaTime*followerSpeed;
