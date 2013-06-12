@@ -5,6 +5,8 @@ using System.Collections;
 
 public class BackgroundMusic : MonoBehaviour {
 	
+	public AudioSource bgMusic;
+	
 	public AudioClip topSlow;
 	public AudioClip topFast;
 	public AudioClip bottomSlow;
@@ -14,7 +16,9 @@ public class BackgroundMusic : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		audio.loop = true;
+		bgMusic = gameObject.AddComponent<AudioSource>();
+		bgMusic.loop = true;
+		bgMusic.playOnAwake = false;
 		setMusic();
 	}
 	
@@ -31,22 +35,26 @@ public class BackgroundMusic : MonoBehaviour {
 		FollowerMove follower = GameObject.FindObjectOfType(typeof(FollowerMove)) as FollowerMove;
 		bool sameLevel = (player.isOnTop == follower.isOnTop);
 		
-		currTime = audio.timeSamples;
+		currTime = bgMusic.timeSamples;
+		AudioClip newClip;
 		
 		if (player.isOnTop) {
 			if (follower.isFollowing && sameLevel)
-				audio.clip = topFast;
+				newClip = topFast;
 			else
-				audio.clip = topSlow;
+				newClip = topSlow;
 		}
 		else {
 			if (follower.isFollowing && sameLevel)
-				audio.clip = bottomFast;
+				newClip = bottomFast;
 			else
-				audio.clip = bottomSlow;
+				newClip = bottomSlow;
 		}
 		
-		audio.timeSamples = currTime;
-		audio.Play();
+		if (bgMusic.clip != newClip) {
+			bgMusic.clip = newClip;
+			bgMusic.timeSamples = currTime;
+			bgMusic.Play();
+		}
 	}
 }
