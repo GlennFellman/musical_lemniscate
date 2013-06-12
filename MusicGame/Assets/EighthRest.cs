@@ -9,7 +9,7 @@ public class EighthRest : MonoBehaviour
 	public bool isMovingRight;
 	
 	public bool isOnTop;
-	public int level;
+	public GameConstants.Level level;
 	
 	// Use this for initialization
 	void Start ()
@@ -35,14 +35,14 @@ public class EighthRest : MonoBehaviour
 	
 	public void warp()
 	{
-		if(level == 4)
+		if(level == GameConstants.Level.Four)
 		{
 			if(isOnTop)
 				transform.Translate(0f, -9*DELTALAYER, 0f);
 			else
 				transform.Translate(0f, 3*DELTALAYER, 0f);
 			isOnTop = !isOnTop;
-			level = 1;
+			level = GameConstants.Level.One;
 		}
 		else
 		{

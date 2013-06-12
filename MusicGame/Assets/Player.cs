@@ -4,21 +4,16 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 	public bool isOnTop;
-	public int level;
-	
-	private const float BOTTOMLAYER = 0.0f;
-	private const float TOPLAYER = 9.6f;
-	private const float DELTALAYER = 1.6f;
-	private const float PLATFORMHEIGHT = 0.7882414f;
+	public GameConstants.Level level;
 
 	// Use this for initialization
 	void Start ()
 	{
 		Vector3 playerPosition = transform.position;
 		playerPosition.x = 10.0f;
-		playerPosition.y = PLATFORMHEIGHT;
-		playerPosition.y += isOnTop? TOPLAYER : BOTTOMLAYER;
-		playerPosition.y += DELTALAYER*(level-1);
+		playerPosition.y = GameConstants.PLATFORMHEIGHT;
+		playerPosition.y += isOnTop? GameConstants.TOPLAYER : GameConstants.BOTTOMLAYER;
+		playerPosition.y += GameConstants.DELTALAYER*((int) level-1);
 		playerPosition.z = 13.0f;
 		transform.position = playerPosition;
 		
@@ -37,17 +32,17 @@ public class Player : MonoBehaviour
 			rigidbody.AddForce(0f, 0f, 4f, ForceMode.VelocityChange);
 		if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
 		{
-			if(level != 1)
+			if(level != GameConstants.Level.One)
 			{
-				playerPosition.y -= DELTALAYER;
+				playerPosition.y -= GameConstants.DELTALAYER;
 				level--;
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
 		{
-			if(level != 4)
+			if(level != GameConstants.Level.Four)
 			{
-				playerPosition.y += DELTALAYER;
+				playerPosition.y += GameConstants.DELTALAYER;
 				level++;
 			}
 		}
@@ -55,11 +50,11 @@ public class Player : MonoBehaviour
 		{
 			if(isOnTop)
 			{
-				playerPosition.y -= TOPLAYER;
+				playerPosition.y -= GameConstants.TOPLAYER;
 			}
 			else
 			{
-				playerPosition.y += TOPLAYER;
+				playerPosition.y += GameConstants.TOPLAYER;
 			}
 			isOnTop = !isOnTop;
 			FollowerMove[] followers = GameObject.FindObjectsOfType(typeof(FollowerMove)) as FollowerMove[];

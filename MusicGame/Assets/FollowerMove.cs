@@ -3,10 +3,7 @@ using System.Collections;
 
 public class FollowerMove : MonoBehaviour
 {
-	public enum Notes {Quarter = -1, Whole = 0, Eighth = 1};
-	public Notes note_type;
-	private const float TOPLAYER = 9.6f;
-	private const float BOTTOMLAYER = 0.0f;
+	public GameConstants.Notes note_type;
 	
 	public bool isOnTop;
 	
@@ -24,6 +21,23 @@ public class FollowerMove : MonoBehaviour
 		closeToPlayer = false;
 		myColor = renderer.material.color;
 		renderer.material = matNotClose;
+		
+		// Sets materials according to note type
+		switch(note_type)
+		{
+		case GameConstants.Notes.Quarter:
+			// Set quarter material
+			followerSpeed = 6;
+			break;
+		case GameConstants.Notes.Whole:
+			// Set whole material
+			followerSpeed = 4;
+			break;
+		case GameConstants.Notes.Eighth:
+			// Set eigth material
+			followerSpeed = 7;
+			break;
+		}
 	}
 	
 	// Update is called once per frame
@@ -33,7 +47,24 @@ public class FollowerMove : MonoBehaviour
 		// Find distance from follower to player
 		Player player = GameObject.FindObjectOfType(typeof(Player)) as Player;
 		Vector3 playerPosition = player.transform.position;
+		playerPosition.y += 0.05f; // For adjustment purposes
 		Vector3 distance = playerPosition - this.transform.position;
+		
+		// Moves up if follower is an eight note
+		GameObject[] floors = GameObject.FindGameObjectsWithTag("floor");
+		if(note_type == GameConstants.Notes.Eighth && Mathf.Abs(distance.y) > 0.01 && player.isOnTop == this.isOnTop && isFollowing)
+		{
+			foreach(GameObject f in floors)
+				Physics.IgnoreCollision(collider, f.collider);
+			Vector3 newPosition = transform.position;
+			newPosition.y += distance.y*followerSpeed*Time.deltaTime;
+			transform.position = newPosition;
+		}
+		else if(!isFollowing || player.isOnTop != this.isOnTop)
+		{
+			foreach(GameObject f in floors)
+				Physics.IgnoreCollision(collider, f.collider, false);
+		}
 		
 		// Warp stuff
 		if (distance.z > -1.4f && distance.z < 1.4f && distance.y > -0.5f && distance.y < 0.5f) {
@@ -73,11 +104,11 @@ public class FollowerMove : MonoBehaviour
 			Vector3 followerPosition = transform.position;
 			if(isOnTop)
 			{
-				followerPosition.y -= TOPLAYER;
+				followerPosition.y -= GameConstants.TOPLAYER;
 			}
 			else
 			{
-				followerPosition.y += TOPLAYER;
+				followerPosition.y += GameConstants.TOPLAYER;
 			}
 			transform.position = followerPosition;
 			isOnTop = !isOnTop;

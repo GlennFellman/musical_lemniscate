@@ -7,8 +7,8 @@ public class GoalZone : MonoBehaviour {
 	private GameObject follower;
 	public AudioClip bad_mod;
 	public int req_mod;
-	public FollowerMove.Notes req_note_type;
-	private FollowerMove.Notes noteType;
+	public GameConstants.Notes req_note_type;
+	private GameConstants.Notes noteType;
 	
 
 	
