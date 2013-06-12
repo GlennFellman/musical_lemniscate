@@ -19,7 +19,8 @@ public class BackgroundMusic : MonoBehaviour {
 		bgMusic = gameObject.AddComponent<AudioSource>();
 		bgMusic.loop = true;
 		bgMusic.playOnAwake = false;
-		setMusic();
+		bgMusic.pitch = 1.0f * Mathf.Pow(2.0f, 0.25f);
+		setMusic(); 
 	}
 	
 	// Update is called once per frame
