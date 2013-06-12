@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Modifier : MonoBehaviour
 {
-	public GameObject modifier_sig;
+	//public GameObject modifier_sig;
 	public float enemySpeed;
 	public bool isMovingRight;
 	public Material mat;
@@ -30,9 +30,24 @@ public class Modifier : MonoBehaviour
 		
 		//GameObject follower = GameObject.Find("Follower");
 		if (collider.gameObject.tag == "follower"){
-			modifier_sig.SetActive(true);
-			modifier_sig.renderer.material=this.renderer.material;
+			
+			changeModifierSignal();
+			
+			// Old mod code
+			//Active modifier signal
+//			if (modifier_sig.activeSelf) {
+//				// Make modifier signal natural
+//				if (modifier_sig.renderer.material != this.renderer.material)
+//					modifier_sig.SetActive(false);
+//			}
+//			// Non-active modifier signal
+//			else {
+//				modifier_sig.SetActive(true);
+//				modifier_sig.renderer.material=this.renderer.material;
+//			}
 			//Destroy(this.gameObject);
 		}		
 	}
+	
+	public virtual void changeModifierSignal() {}
 }
