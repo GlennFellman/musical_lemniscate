@@ -3,8 +3,8 @@ using System.Collections;
 
 public class FollowerMove : MonoBehaviour
 {
-	public int note_type;
-	
+	public enum Notes {Quarter = -1, Whole = 0, Eighth = 1};
+	public Notes note_type;
 	private const float TOPLAYER = 9.6f;
 	private const float BOTTOMLAYER = 0.0f;
 	
