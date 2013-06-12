@@ -3,6 +3,8 @@ using System.Collections;
 
 public class FollowerMove : MonoBehaviour
 {
+	public int note_type;
+	
 	private const float TOPLAYER = 9.6f;
 	private const float BOTTOMLAYER = 0.0f;
 	
