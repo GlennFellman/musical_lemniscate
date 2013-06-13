@@ -23,7 +23,7 @@ public class QuarterRest : MonoBehaviour
 		justWarped = false;
 		wasCloseToPlayer = false;
 		closeToPlayer = false;
-		renderer.material = matNotClose;
+		//renderer.material = matNotClose;
 	}
 	
 	// Update is called once per frame
@@ -52,13 +52,13 @@ public class QuarterRest : MonoBehaviour
 		// Warp stuff
 		if (distance.z > -1.4f && distance.z < 1.4f && distance.y > -0.5f && distance.y < 0.5f) {
 			closeToPlayer = true;
-    		renderer.material.color = Color.yellow;
+    		//renderer.material.color = Color.yellow;
 			//renderer.material = matClose;
 		}
 		else {
 			closeToPlayer = false;
 			//renderer.material.color = myColor;
-			renderer.material = matNotClose;
+			//renderer.material = matNotClose;
 		}
 		if(wasCloseToPlayer==true && closeToPlayer==false){
 			justWarped=false;
@@ -88,7 +88,14 @@ public class QuarterRest : MonoBehaviour
 	
 	void OnTriggerEnter(Collider collider)
 	{
-		if(collider.gameObject.tag == "wall")
+		if(collider.gameObject.tag == "wall") {
 			isMovingRight = !isMovingRight;
+			changeAnim();
+		}
+	}
+	
+	void changeAnim() {
+		LinkedSpriteManager lsm = GameObject.FindObjectOfType(typeof(LinkedSpriteManager)) as LinkedSpriteManager;
+		lsm.changeDir(this.transform, isMovingRight);
 	}
 }

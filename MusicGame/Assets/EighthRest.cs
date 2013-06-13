@@ -57,6 +57,12 @@ public class EighthRest : MonoBehaviour
 		{
 			isMovingRight = !isMovingRight;
 			warp();
+			changeAnim();
 		}
+	}
+	
+	void changeAnim() {
+		LinkedSpriteManager lsm = GameObject.FindObjectOfType(typeof(LinkedSpriteManager)) as LinkedSpriteManager;
+		lsm.changeDir(this.transform, isMovingRight);
 	}
 }

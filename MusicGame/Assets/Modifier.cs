@@ -11,7 +11,7 @@ public class Modifier : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		renderer.material = mat;
+		//renderer.material = mat;
 	}
 	
 	// Update is called once per frame

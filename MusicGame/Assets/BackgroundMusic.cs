@@ -16,11 +16,14 @@ public class BackgroundMusic : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		bgMusic = gameObject.AddComponent<AudioSource>();
-		bgMusic.loop = true;
-		bgMusic.playOnAwake = false;
-		bgMusic.pitch = 1.0f * Mathf.Pow(2.0f, 0.25f);
-		setMusic(); 
+		if (bgMusic == null) {
+			bgMusic = gameObject.AddComponent<AudioSource>();
+			bgMusic.loop = true;
+			bgMusic.playOnAwake = false;
+			bgMusic.pitch = 1.0f;
+			//bgMusic.pitch = 1.0f * Mathf.Pow(2.0f, 0.25f); // Put song in Eb
+			setMusic(); 
+		}
 	}
 	
 	// Update is called once per frame
@@ -33,20 +36,22 @@ public class BackgroundMusic : MonoBehaviour {
 	//                from follower (when following toggled)
 	public void setMusic() {
 		Player player = GameObject.FindObjectOfType(typeof(Player)) as Player;
-		FollowerMove follower = GameObject.FindObjectOfType(typeof(FollowerMove)) as FollowerMove;
-		bool sameLevel = (player.isOnTop == follower.isOnTop);
+		//FollowerMove follower = player.getCurrentFollower();
+		//bool sameLevel = (player.isOnTop == follower.isOnTop);
 		
+		if (bgMusic == null)
+			Start ();
 		currTime = bgMusic.timeSamples;
 		AudioClip newClip;
 		
 		if (player.isOnTop) {
-			if (follower.isFollowing && sameLevel)
+			if (player.isFastMusic)
 				newClip = topFast;
 			else
 				newClip = topSlow;
 		}
 		else {
-			if (follower.isFollowing && sameLevel)
+			if (player.isFastMusic)
 				newClip = bottomFast;
 			else
 				newClip = bottomSlow;

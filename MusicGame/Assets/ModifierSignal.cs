@@ -3,11 +3,7 @@ using System.Collections;
 
 public class ModifierSignal : MonoBehaviour {
 	
-	// The starting modifier value
-	//   -1 is flat
-	//    0 is natural
-	//    1 is sharp
-	public int myMod;
+	public GameConstants.Modifiers myMod;
 	public Material flatMat;
 	public Material sharpMat;
 	
@@ -22,32 +18,32 @@ public class ModifierSignal : MonoBehaviour {
 	}
 	
 	// Change the material.
-	public void changeMaterial(int newMod) {
-		if (newMod != -1 && newMod != 1) {
+	public void changeMaterial(GameConstants.Modifiers newMod) {
+		if (newMod != GameConstants.Modifiers.Flat && newMod != GameConstants.Modifiers.Sharp) {
 			print("Error in changeMaterial call.");
 			return;
 		}
 		
 		// Set natural to modifier
-		if (myMod == 0)
+		if (myMod == GameConstants.Modifiers.Natural)
 			myMod = newMod;
 		// Set modifier to natural
 		else if (myMod != newMod)
-			myMod = 0;
+			myMod = GameConstants.Modifiers.Natural;
 	
 		setMat();
 	}
 	
 	void setMat() {
 		switch(myMod) {
-		case -1:
+		case GameConstants.Modifiers.Flat:
 			renderer.material = flatMat;
 			renderer.enabled = true;
 			break;
-		case 0:
+		case GameConstants.Modifiers.Natural:
 			renderer.enabled = false;
 			break;
-		case 1:
+		case GameConstants.Modifiers.Sharp:
 			renderer.material = sharpMat;
 			renderer.enabled = true;
 			break;

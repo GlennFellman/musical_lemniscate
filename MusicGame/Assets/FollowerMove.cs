@@ -7,6 +7,7 @@ public class FollowerMove : MonoBehaviour
 	
 	public bool isOnTop;
 	
+	public bool isFollower;
 	public bool isFollowing;
 	public int followerSpeed;
 	private bool closeToPlayer;
@@ -19,8 +20,8 @@ public class FollowerMove : MonoBehaviour
 	{
 		isFollowing = false;
 		closeToPlayer = false;
-		myColor = renderer.material.color;
-		renderer.material = matNotClose;
+//		myColor = renderer.material.color;
+//		renderer.material = matNotClose;
 		
 		// Sets materials according to note type
 		switch(note_type)
@@ -69,24 +70,24 @@ public class FollowerMove : MonoBehaviour
 		// Warp stuff
 		if (distance.z > -1.4f && distance.z < 1.4f && distance.y > -0.5f && distance.y < 0.5f) {
 			closeToPlayer = true;
-    		renderer.material.color = Color.yellow;
+    		//renderer.material.color = Color.yellow;
 			//renderer.material = matClose;
 		}
 		else {
 			closeToPlayer = false;
 			//renderer.material.color = myColor;
-			renderer.material = matNotClose;
+			//renderer.material = matNotClose;
 			
 		}
 		
 		// Follow stuff
 		if(Input.GetKeyDown(KeyCode.F)) {
-			isFollowing = !isFollowing;
-			
-			BackgroundMusic bgm = GameObject.FindObjectOfType(typeof(BackgroundMusic)) as BackgroundMusic;
-			bgm.setMusic();
+//			isFollowing = !isFollowing;
+//			
+//			BackgroundMusic bgm = GameObject.FindObjectOfType(typeof(BackgroundMusic)) as BackgroundMusic;
+//			bgm.setMusic();
 		}
-		if(isFollowing && player.isOnTop == isOnTop)
+		if(player.followingOn && player.isOnTop == isOnTop && isFollower)
 		{
 			Vector3 translation = Vector3.Normalize(distance)*Time.deltaTime*followerSpeed;
 			if(distance.z > 1.4f || distance.z < -1.4f){
@@ -115,5 +116,19 @@ public class FollowerMove : MonoBehaviour
 		}
 	}
 	
-
+	public void startFollowing() {
+		isFollower = true;	
+		// Change some material something
+	}
+	
+	public void stopFollowing() {
+		isFollower = false;
+		// Change some material something
+	}
+	
+	// Change movement
+	public void changeAnimation(bool isMoving) {
+		LinkedSpriteManager lsm = GameObject.FindObjectOfType(typeof(LinkedSpriteManager)) as LinkedSpriteManager;
+		lsm.changeMovement(this.transform, isMoving);
+	}
 }

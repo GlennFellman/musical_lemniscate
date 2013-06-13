@@ -6,7 +6,7 @@ public class GoalZone : MonoBehaviour {
 	private ModifierSignal modifier_sig;
 	private GameObject follower;
 	public AudioClip bad_mod;
-	public int req_mod;
+	public GameConstants.Modifiers req_mod;
 	public GameConstants.Notes req_note_type;
 	private GameConstants.Notes noteType;
 	
