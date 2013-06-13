@@ -35,10 +35,10 @@ public class QuarterRest : MonoBehaviour
 		this.transform.Translate(0f, 0f, -s);
 		
 		// Calculate collisions with followers
-		GameObject[] followers = GameObject.FindGameObjectsWithTag("follower");
-		foreach(GameObject follower in followers)
+		FollowerMove[] followers = GameObject.FindObjectsOfType(typeof(FollowerMove)) as FollowerMove[];
+		foreach(FollowerMove follower in followers)
 		{
-			if(Mathf.Abs(transform.position.z - follower.transform.position.z) < 1.5f && Mathf.Abs(transform.position.y - follower.transform.position.y) < 0.1f)
+			if(Mathf.Abs(transform.position.z - follower.transform.position.z) < 1.5f && Mathf.Abs(transform.position.y - follower.transform.position.y) < 0.5f)
 			{
 				Application.LoadLevel(Application.loadedLevel);
 			}

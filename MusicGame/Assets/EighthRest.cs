@@ -3,8 +3,6 @@ using System.Collections;
 
 public class EighthRest : MonoBehaviour
 {
-	private const float DELTALAYER = 1.6f;
-	
 	public float enemySpeed;
 	public bool isMovingRight;
 	
@@ -38,15 +36,15 @@ public class EighthRest : MonoBehaviour
 		if(level == GameConstants.Level.Four)
 		{
 			if(isOnTop)
-				transform.Translate(0f, -9*DELTALAYER, 0f);
+				transform.Translate(0f, -9*GameConstants.DELTALAYER, 0f);
 			else
-				transform.Translate(0f, 3*DELTALAYER, 0f);
+				transform.Translate(0f, 3*GameConstants.DELTALAYER, 0f);
 			isOnTop = !isOnTop;
 			level = GameConstants.Level.One;
 		}
 		else
 		{
-			transform.Translate(0f, DELTALAYER, 0f);
+			transform.Translate(0f, GameConstants.DELTALAYER, 0f);
 			level++;
 		}
 	}
@@ -56,6 +54,13 @@ public class EighthRest : MonoBehaviour
 		if(collider.gameObject.tag == "wall")
 		{
 			isMovingRight = !isMovingRight;
+			
+			// Translate away from wall
+			if (!isMovingRight)
+				transform.Translate(0f, 0f, 0.5f);
+			else
+				transform.Translate(0f, 0f, -0.5f);
+			
 			warp();
 			changeAnim();
 		}

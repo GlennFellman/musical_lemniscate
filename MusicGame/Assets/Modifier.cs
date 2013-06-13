@@ -29,9 +29,9 @@ public class Modifier : MonoBehaviour
 			isMovingRight = !isMovingRight;
 		
 		//GameObject follower = GameObject.Find("Follower");
-		if (collider.gameObject.tag == "follower"){
+		if (collider.gameObject.tag == "WholeNote"||collider.gameObject.tag == "QuarterNote"||collider.gameObject.tag == "EighthNote" ){
 			
-			changeModifierSignal();
+			changeModifierSignal(collider.gameObject);
 			
 			// Old mod code
 			//Active modifier signal
@@ -49,5 +49,5 @@ public class Modifier : MonoBehaviour
 		}		
 	}
 	
-	public virtual void changeModifierSignal() {}
+	public virtual void changeModifierSignal(GameObject obj) {}
 }

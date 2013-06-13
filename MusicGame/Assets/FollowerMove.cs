@@ -32,7 +32,7 @@ public class FollowerMove : MonoBehaviour
 			break;
 		case GameConstants.Notes.Whole:
 			// Set whole material
-			followerSpeed = 4;
+			followerSpeed = 3;
 			break;
 		case GameConstants.Notes.Eighth:
 			// Set eigth material
@@ -53,7 +53,7 @@ public class FollowerMove : MonoBehaviour
 		
 		// Moves up if follower is an eight note
 		GameObject[] floors = GameObject.FindGameObjectsWithTag("floor");
-		if(note_type == GameConstants.Notes.Eighth && Mathf.Abs(distance.y) > 0.01 && player.isOnTop == this.isOnTop && isFollowing)
+		if(note_type == GameConstants.Notes.Eighth && Mathf.Abs(distance.y) > 0.01 && player.isOnTop == this.isOnTop && player.followingOn && isFollower)
 		{
 			foreach(GameObject f in floors)
 				Physics.IgnoreCollision(collider, f.collider);

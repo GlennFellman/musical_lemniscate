@@ -5,7 +5,7 @@ public class GameConstants : MonoBehaviour
 {
 	public enum Level { One = 1, Two = 2, Three = 3, Four = 4 }; // Yes I'm serious. Makes selection easier in Inspector.
 	public enum Notes { Quarter = -1, Whole = 0, Eighth = 1 };
-	public enum Rests { Whole = 1, Half = -1 };
+	public enum Rests { Whole = -1, Half = 1 };
 	public enum EnemyRests { Quarter = 1, Eighth = 2 };
 	public enum Modifiers { Sharp = 1, Natural = 0, Flat = -1 };
 	

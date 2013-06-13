@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 	public int currFollowerInt;
 	public bool followingOn;
 	public bool isFastMusic;
+	public Material far;
+	public Material near;
 
 	// Use this for initialization
 	void Start ()
@@ -32,7 +34,7 @@ public class Player : MonoBehaviour
 		changeBackgroundMusic();
 		
 		// Animation setup
-		changeAnimations();
+		//changeAnimations();
 	}
 	
 	// Update is called once per frame
@@ -100,7 +102,7 @@ public class Player : MonoBehaviour
 		}
 		
 		// Change follower
-		if (Input.GetKeyDown(KeyCode.G)) {
+		if (Input.GetKeyDown(KeyCode.E)) {
 			// Remove current follower
 			followers[currFollowerInt].stopFollowing();
 //			if (followingOn)
@@ -119,6 +121,8 @@ public class Player : MonoBehaviour
 		
 		playerPosition.x = 10.0f;
 		transform.position = playerPosition;
+		
+		changeColor();
 	}
 	
 	public FollowerMove getCurrentFollower() {
@@ -153,5 +157,35 @@ public class Player : MonoBehaviour
 		
 		// Return true if it changed, false if it didn't
 		return (isFastMusic != oldIFM);
+	}
+	
+	public void changeColor() {
+		bool farFromSomething = true;
+		
+		// Check followers
+		FollowerMove[] followers = GameObject.FindObjectsOfType(typeof(FollowerMove)) as FollowerMove[];
+		foreach (FollowerMove follower in followers) {
+			Vector3 distance = this.transform.position - follower.transform.position;
+			if (distance.z > -1.4f && distance.z < 1.4f && distance.y > -0.5f && distance.y < 0.5f) {
+				renderer.material = near;
+	    		//renderer.material.color = Color.red;
+				farFromSomething = false;
+			}	
+		}
+		
+		// Check rests
+		QuarterRest[] quarterRests = GameObject.FindObjectsOfType(typeof(QuarterRest)) as QuarterRest[];
+		foreach (QuarterRest qr in quarterRests) {
+			Vector3 distance = this.transform.position - qr.transform.position;
+			if (distance.z > -1.4f && distance.z < 1.4f && distance.y > -0.5f && distance.y < 0.5f) {
+	    		renderer.material = near;
+				//renderer.material.color = Color.red;
+				farFromSomething = false;
+			}	
+		}
+		
+		if (farFromSomething)
+			renderer.material = far;
+			//renderer.material.color = Color.black;
 	}
 }
