@@ -1,41 +1,24 @@
 using UnityEngine;
 using System.Collections;
 
-public class GoalZoneAnim : MonoBehaviour {
+public class GoalZoneAnim : Anim {
 	
-	public LinkedSpriteManager spriteManager;
+	private UVAnimation anim;
 	
-	// Use this for initialization
-	void Start () {
-		DrawSharpAnimation();
+	protected override void createSprite() {
+		sprite = spriteManager.AddSprite(this.gameObject, 1f, 1f, new Vector2(0f, 14f/numRows), cellSize, Vector3.zero, false);
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	protected override void createAnimations() {
+		// Set up animation
+		anim = new UVAnimation();
+		anim.name = "GoalZone Animation";
+		anim.loopCycles = -1;
+		anim.framerate = 24;
 		
-	}
-	
-	public void DrawSharpAnimation() {
-		// Put sprite on client objects
-		GameObject[] clients = GameObject.FindGameObjectsWithTag("GoalZone");
-//		Sprite clientSprite = spriteManager.AddSprite(client, 1f, 1f, spriteManager.PixelCoordToUVCoord(new Vector2(0f, 0f)), spriteManager.PixelSpaceToUVSpace(new Vector2(125f, 125f)), Vector3.zero, false);
-		foreach (GameObject client in clients) {
-//			Sprite clientSprite = spriteManager.AddSprite(client, 1f, 1f, new Vector2(0f, 2f/3f), new Vector2(1f/6f, 1f/3f), Vector3.zero, false);
-			Sprite clientSprite = spriteManager.AddSprite(client, 1f, 1f, new Vector2(0f, 14f/15f), new Vector2(1f/18f, 1f/15f), Vector3.zero, false);
-		
-		
-			// Set up animation
-			UVAnimation anim = new UVAnimation();
-			anim.name = "GoalZone Animation";
-			anim.loopCycles = -1;
-			anim.framerate = 24;
-			
-	//		sharpAnim.BuildUVAnim(spriteManager.PixelCoordToUVCoord(new Vector2(0f, 0f)), spriteManager.PixelSpaceToUVSpace(new Vector2(125f, 125f)), 6, 3, 18, 24);
-			anim.BuildUVAnim(new Vector2(0f, 14f/15f), new Vector2(1f/18f, 1f/15f), 18, 2, 36, 24);
-			
-			// Prepare sprite
-			clientSprite.AddAnimation(anim);
-			clientSprite.PlayAnim("GoalZone Animation");
-		}
+		anim.BuildUVAnim(new Vector2(0f, 14f/numRows), cellSize, 18, 2, 36, 24);
+		sprite.AddAnimation(anim);
+
+		sprite.PlayAnim(anim);	
 	}
 }

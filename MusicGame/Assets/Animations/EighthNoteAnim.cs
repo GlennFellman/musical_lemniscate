@@ -1,50 +1,44 @@
 using UnityEngine;
 using System.Collections;
 
-public class EighthNoteAnim : MonoBehaviour {
+public class EighthNoteAnim : Anim {
 	
-	public LinkedSpriteManager spriteManager;
-
-	// Use this for initialization
-	void Start () {
-		//spriteManager = GameObject.FindObjectOfType(typeof(LinkedSpriteManager)) as LinkedSpriteManager;		
-		DrawSharpAnimation();
+	private UVAnimation standAnim;
+	private UVAnimation moveAnim;
+	
+	
+	protected override void createSprite() {
+		sprite = spriteManager.AddSprite(this.gameObject, 1f, 1f, new Vector2(0f, 10f/numRows), cellSize, Vector3.zero, false);
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	protected override void createAnimations() {
+		// Set up standing animation
+		standAnim = new UVAnimation();
+		standAnim.name = "EighthNote Standing Animation";
+		standAnim.loopCycles = -1;
+		standAnim.framerate = 24;
 		
+		standAnim.BuildUVAnim(new Vector2(0f, 10f/numRows), cellSize, 18, 1, 18, 24);
+		sprite.AddAnimation(standAnim);
+	
+		// Set up moving animation
+		moveAnim = new UVAnimation();
+		moveAnim.name = "EighthNote Moving Animation";
+		moveAnim.loopCycles = -1;
+		moveAnim.framerate = 24;
+		
+		moveAnim.BuildUVAnim(new Vector2(0f, 9f/numRows), cellSize, 18, 1, 18, 24);
+		sprite.AddAnimation(moveAnim);
+		
+		// Play starting animation
+		playStandingAnim();
 	}
 	
-	public void DrawSharpAnimation() {
-		// Put sprite on client objects
-		GameObject[] clients = GameObject.FindGameObjectsWithTag("EighthNote");
-		foreach (GameObject client in clients) {
-			Sprite clientSprite = spriteManager.AddSprite(client, 1f, 1f, new Vector2(0f, 10f/15f), new Vector2(1f/18f, 1f/15f), Vector3.zero, false);
-		
-			// Set up standing animation
-			UVAnimation sAnim = new UVAnimation();
-			sAnim.name = "EighthNote Standing Animation";
-			sAnim.loopCycles = -1;
-			sAnim.framerate = 24;
-			
-			sAnim.BuildUVAnim(new Vector2(0f, 10f/15f), new Vector2(1f/18f, 1f/15f), 18, 1, 18, 24);
-			
-			// Prepare sprite
-			clientSprite.AddAnimation(sAnim);
-			
-//			// Set up moving animation
-//			UVAnimation mAnim = new UVAnimation();
-//			mAnim.name = "EighthNote Moving Animation";
-//			mAnim.loopCycles = -1;
-//			mAnim.framerate = 24;
-//			
-//			mAnim.BuildUVAnim(new Vector2(0f, 9f/15f), new Vector2(1f/18f, 1f/15f), 18, 1, 18, 24);
-//			
-//			// Prepare sprite
-//			clientSprite.AddAnimation(mAnim);
-			
-			clientSprite.PlayAnim("EighthNote Standing Animation");
-		}
+	public void playStandingAnim() {
+		sprite.PlayAnim(standAnim);	
+	}
+	
+	public void playMovingAnim() {
+		sprite.PlayAnim(moveAnim);
 	}
 }

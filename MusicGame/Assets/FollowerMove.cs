@@ -117,18 +117,20 @@ public class FollowerMove : MonoBehaviour
 	}
 	
 	public void startFollowing() {
-		isFollower = true;	
-		// Change some material something
+		isFollower = true;
+		
+		if (note_type == GameConstants.Notes.Eighth) {
+			EighthNoteAnim anim = this.gameObject.GetComponent(typeof(EighthNoteAnim)) as EighthNoteAnim;
+			anim.playMovingAnim();
+		}
 	}
 	
 	public void stopFollowing() {
 		isFollower = false;
-		// Change some material something
-	}
-	
-	// Change movement
-	public void changeAnimation(bool isMoving) {
-		LinkedSpriteManager lsm = GameObject.FindObjectOfType(typeof(LinkedSpriteManager)) as LinkedSpriteManager;
-		lsm.changeMovement(this.transform, isMoving);
+		
+		if (note_type == GameConstants.Notes.Eighth) {
+			EighthNoteAnim anim = this.gameObject.GetComponent(typeof(EighthNoteAnim)) as EighthNoteAnim;
+			anim.playStandingAnim();
+		}
 	}
 }

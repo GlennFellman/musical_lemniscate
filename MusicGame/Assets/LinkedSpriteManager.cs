@@ -132,52 +132,8 @@ public class LinkedSpriteManager : SpriteManager
 		foreach (Sprite sprite in sprites) {
 			foreach (UVAnimation anim in sprite.animations) {
 				anim.framerate = fr;	
-				sprite.PlayAnim(anim);
+				sprite.PlayAnim(sprite.curAnim);
 			}
 		}
-	}
-	
-	public void changeDir(Transform transform, bool isMovingRight) {		
-		Sprite rightSprite = null;
-		
-		// Find sprite
-		foreach (Sprite sprite in sprites) {
-			if (transform == sprite.clientTransform) {
-				rightSprite = sprite;
-				break;
-			}
-		}
-		
-		// Incorrect call?
-		if (rightSprite.animations.Count < 2)
-			return;
-		
-		// Change animation
-		if (isMovingRight)
-			rightSprite.PlayAnim((UVAnimation)rightSprite.animations[1]);
-		else
-			rightSprite.PlayAnim((UVAnimation)rightSprite.animations[0]);
-	}
-	
-	public void changeMovement(Transform transform, bool isMoving) {		
-		Sprite rightSprite = null;
-		
-		// Find sprite
-		foreach (Sprite sprite in sprites) {
-			if (transform == sprite.clientTransform) {
-				rightSprite = sprite;
-				break;
-			}
-		}
-		
-		// Incorrect call?
-		if (rightSprite.animations.Count < 2)
-			return;
-		
-		// Change animation
-		if (isMoving)
-			rightSprite.PlayAnim((UVAnimation)rightSprite.animations[0]);
-		else
-			rightSprite.PlayAnim((UVAnimation)rightSprite.animations[0]);
 	}
 }

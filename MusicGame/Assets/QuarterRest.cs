@@ -90,12 +90,12 @@ public class QuarterRest : MonoBehaviour
 	{
 		if(collider.gameObject.tag == "wall") {
 			isMovingRight = !isMovingRight;
-			changeAnim();
+			
+			QuarterRestAnim anim = this.gameObject.GetComponent(typeof(QuarterRestAnim)) as QuarterRestAnim;
+			if (isMovingRight)
+				anim.playRightAnim();
+			else
+				anim.playLeftAnim();
 		}
-	}
-	
-	void changeAnim() {
-		LinkedSpriteManager lsm = GameObject.FindObjectOfType(typeof(LinkedSpriteManager)) as LinkedSpriteManager;
-		lsm.changeDir(this.transform, isMovingRight);
 	}
 }
